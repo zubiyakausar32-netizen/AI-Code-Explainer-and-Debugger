@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the code analysis, explanation, debugging, and learning tools in CodeLens AI.">
+    <title>Features | CodeLens AI</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --page: #080b16;
+            --surface: #111629;
+            --border: rgba(148, 163, 184, .16);
+            --muted: #9aa5bd;
+            --accent: #a99dff;
+            --mint: #63e6be;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 75% 5%, rgba(99, 67, 210, .19), transparent 34rem),
+                radial-gradient(ellipse at 8% 45%, rgba(44, 124, 148, .09), transparent 28rem),
+                var(--page);
+            color: #f3f5ff;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-nav,
+        main,
+        footer {
+            width: min(1080px, calc(100% - 40px));
+            margin-inline: auto;
+        }
+
+        .site-nav {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(148, 163, 184, .11);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            color: #f8f8ff;
+            font-size: 15px;
+            font-weight: 750;
+            letter-spacing: -.3px;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(167, 154, 255, .38);
+            border-radius: 11px;
+            background: linear-gradient(145deg, #7867ff, #4536ba);
+            box-shadow: 0 7px 24px rgba(99, 83, 225, .28);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-actions a {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: #c5cce0;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .nav-actions a.primary {
+            border-color: rgba(167, 154, 255, .5);
+            background: linear-gradient(135deg, #7867ff, #5946d3);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .intro {
+            max-width: 720px;
+            padding: 76px 0 42px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 7px 11px;
+            border: 1px solid rgba(150, 138, 255, .24);
+            border-radius: 999px;
+            background: rgba(111, 94, 230, .1);
+            color: #c3baff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--mint);
+            box-shadow: 0 0 12px rgba(99, 230, 190, .8);
+            content: "";
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            color: #f7f7ff;
+            font-size: clamp(38px, 6vw, 58px);
+            font-weight: 780;
+            letter-spacing: -2.6px;
+            line-height: 1.08;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .intro > p {
+            max-width: 630px;
+            color: #aab3c8;
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .section-heading {
+            margin: 0 0 18px;
+            color: #f2f3fc;
+            font-size: 17px;
+            letter-spacing: -.3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            padding-bottom: 48px;
+        }
+
+        .feature-card {
+            min-height: 190px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(24, 30, 52, .94), rgba(16, 21, 39, .94));
+        }
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(169, 157, 255, .2);
+            border-radius: 11px;
+            background: rgba(130, 112, 255, .11);
+            font-size: 18px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            color: #e6e8f5;
+            font-size: 15px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .how-it-works {
+            margin-bottom: 38px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(17, 22, 41, .82);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .step {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+        .step strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #e6e8f5;
+            font-size: 13px;
+        }
+
+        .step-number {
+            display: inline-grid;
+            width: 24px;
+            height: 24px;
+            place-items: center;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: rgba(130, 112, 255, .15);
+            color: #c3baff;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .bottom-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 55px;
+            padding: 22px 24px;
+            border: 1px solid rgba(167, 154, 255, .23);
+            border-radius: 14px;
+            background: linear-gradient(110deg, rgba(100, 82, 220, .14), rgba(23, 29, 51, .75));
+        }
+
+        .bottom-cta h2 {
+            margin-bottom: 5px;
+            color: #e9e7ff;
+            font-size: 16px;
+        }
+
+        .bottom-cta p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .bottom-cta a {
+            flex: 0 0 auto;
+            padding: 11px 15px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #7867ff, #5946d3);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        footer {
+            padding: 18px 0 26px;
+            border-top: 1px solid rgba(148, 163, 184, .11);
+            color: #78839c;
+            font-size: 11px;
+        }
+
+        @media (max-width: 640px) {
+            .site-nav,
+            main,
+            footer {
+                width: min(100% - 32px, 1080px);
+            }
+
+            .site-nav {
+                min-height: 66px;
+            }
+
+            .nav-actions {
+                gap: 7px;
+            }
+
+            .nav-actions a {
+                padding: 9px 10px;
+                font-size: 11px;
+            }
+
+            .intro {
+                padding-top: 52px;
+            }
+
+            h1 {
+                letter-spacing: -1.8px;
+            }
+
+            .features-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                min-height: auto;
+            }
+
+            .how-it-works {
+                padding: 20px;
+            }
+
+            .bottom-cta {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="brand" href="index.html" aria-label="CodeLens AI home">
+                <span class="brand-mark" aria-hidden="true">⌘</span>
+                <span>CodeLens <span style="color:#a99dff">AI</span></span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html">← Home</a>
+                <a class="primary" href="workspace.html">Open workspace <span aria-hidden="true">↗</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro" aria-labelledby="page-title">
+            <div class="eyebrow">Explore CodeLens AI</div>
+            <h1>Tools to help you<br><span>understand your code.</span></h1>
+            <p>Explore the features available in the CodeLens workspace. Paste in a JavaScript snippet to try the built-in checks, explanations, step-through view, and CodeBot chat.</p>
+        </section>
+
+        <section aria-labelledby="features-title">
+            <h2 class="section-heading" id="features-title">What you can do</h2>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🐛</div>
+                    <h3>Analyze common issues</h3>
+                    <p>Check JavaScript snippets for a few recognizable problems, including possible division by zero and array loops that may run one step too far. Review the suggestions alongside your code.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">💡</div>
+                    <h3>Get a code explanation</h3>
+                    <p>Choose Beginner, Student, or Developer mode, then ask the workspace to explain familiar patterns such as variables, loops, conditions, and functions.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">▶️</div>
+                    <h3>Walk through code</h3>
+                    <p>Use Step-by-Step to display non-empty lines in sequence, helping you follow the order in which instructions appear in your snippet.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🔧</div>
+                    <h3>Review a suggested fix</h3>
+                    <p>Auto Fix demonstrates a couple of targeted JavaScript edits. Inspect the suggested code before copying it or using it in your project.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">📊</div>
+                    <h3>Check code health</h3>
+                    <p>See a score based on the issues and warnings detected by the analyzer, plus a quick X-Ray summary of code length and findings.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🤖</div>
+                    <h3>Ask CodeBot</h3>
+                    <p>Ask starter questions about bugs, loops, functions, variables, and explanations. CodeBot offers guidance based on the question and the code in the editor.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🖥️</div>
+                    <h3>Run JavaScript snippets</h3>
+                    <p>Try a JavaScript snippet in the workspace and view captured console output or runtime errors. Run only code you trust.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">📄</div>
+                    <h3>Start with an example</h3>
+                    <p>Load the built-in sample to explore the editor and try the analysis, explanation, and run controls without writing a snippet first.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="how-it-works" aria-labelledby="steps-title">
+            <h2 class="section-heading" id="steps-title">Get started in three steps</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Open the workspace</strong>
+                    Go back to the homepage and scroll to the code workspace.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Add a code snippet</strong>
+                    Paste your JavaScript or load the example to explore the controls.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Choose a tool</strong>
+                    Analyze, explain, step through, run the snippet, or ask CodeBot a question.
+                </div>
+            </div>
+        </section>
+
+        <section class="bottom-cta" aria-label="Open the code workspace">
+            <div>
+                <h2>Ready to explore your code?</h2>
+                <p>Head to the workspace and try the tools with a JavaScript example.</p>
+            </div>
+            <a href="workspace.html">Go to workspace <span aria-hidden="true">→</span></a>
+        </section>
+    </main>
+
+    <footer>CodeLens AI · A friendly place to explore and learn from code.</footer>
+</body>
+</html>
